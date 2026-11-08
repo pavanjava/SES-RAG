@@ -1,0 +1,17 @@
+\section{Related Work}
+\label{sec:related}
+
+\paragraph{Multi-hop question answering and iterative retrieval.}
+HotpotQA~\cite{yang2018hotpotqa}, 2WikiMultiHopQA~\cite{ho2020constructing} and MuSiQue~\cite{trivedi2022musique} require combining several documents, and in \emph{bridge} questions the second document is reachable only through an entity named in the first. Single-shot dense retrieval~\cite{karpukhin2020dpr,lewis2020rag} ranks the second document low because the question never mentions its entity. The standard remedy is iterative retrieval: IRCoT~\cite{trivedi2023ircot} interleaves retrieval with chain-of-thought steps, and critique-based approaches such as Self-RAG~\cite{asai2024selfrag} decide when and what to retrieve again. These methods issue several LLM calls per query. We include an iterative baseline and show how it compares with an LLM-free alternative.
+
+\paragraph{Graph-based RAG.}
+GraphRAG~\cite{edge2024graphrag} and LightRAG~\cite{guo2024lightrag} build entity graphs with an LLM and retrieve through entities and community summaries; HippoRAG~\cite{gutierrez2024hipporag} and HippoRAG~2~\cite{gutierrez2025hipporag2} run Personalized PageRank~\cite{haveliwala2002ppr} over an entity--passage graph; G-Retriever~\cite{he2024gretriever} selects a connected subgraph by solving a prize-collecting Steiner tree problem. GEM-RAG~\cite{rappazzo2024gem} and SpectRAG~\cite{spectrag} use the eigenvectors of a normalised graph Laplacian as chunk coordinates for proximity scoring. In all of these, the graph generates or re-ranks \emph{individual} candidates. We instead score the \emph{set} that will be shown to the generator.
+
+\paragraph{Budgeted context selection.}
+AdaGReS~\cite{peng2025adagres} greedily selects chunks under a token budget with a set-level relevance and redundancy objective; SEAL-RAG~\cite{lahmy2025seal} replaces distractors with missing bridge facts under a fixed retrieval depth; PAGE-RAG~\cite{deng2026page} uses a graph as a query-aware filter over a candidate pool under a fixed budget. PAGE-RAG and SEAL-RAG are the closest in motivation. Our selector differs in its objective: it adds the change in the algebraic connectivity of the selected subgraph to the relevance gain and needs no LLM call. Ex-GraphRAG~\cite{sade2026exgraphrag} studies which retrieved subgraph evidence reaches a GNN-based generator, which is complementary.
+
+\paragraph{Spectral graph theory.}
+The second-smallest eigenvalue $\lambda_2$ of a graph Laplacian, the Fiedler value~\cite{fiedler1973algebraic,chung1997spectral}, is zero if and only if the graph is disconnected and grows with connectivity; its eigenvector underlies spectral partitioning~\cite{shi2000normalized}. We use $\lambda_2$ of the subgraph induced by the \emph{selected context} as a connectivity signal.
+
+\paragraph{Positioning.}
+Prior work establishes that bridge evidence matters and that graphs can help find it. What is missing is (i) a measurement of how much of the answer-quality loss on bridge questions is attributable to a missing bridge paragraph, separately from generator behaviour; (ii) a comparison of a cheap, LLM-free, set-level connectivity selector against flat, graph-based and LLM-iterative baselines under the same chunks, graph, budget and generators; and (iii) an ablation of whether spectral connectivity specifically, as opposed to any connectivity bonus, is responsible for the gain. This paper supplies these.

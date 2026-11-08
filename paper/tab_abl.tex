@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\caption{Ablations of the selection objective (primary set, gpt-4o-mini). $\Delta$ = variant minus SES-RAG, 95\% CI.}
+\label{tab:abl}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+Variant & Gold-complete & $\Delta$ & F1 & $\Delta$ \\
+\midrule
+SES-RAG (norm.\ $\lambda_2$) & 63.1 & -- & 54.8 & -- \\
+Hybrid+Expand ($\mu{=}0$) & 58.7 & -4.4 [-7.1,-1.9] & 53.0 & -1.8 [-4.1,+0.4] \\
+SES, component count & 65.3 & +2.2 [+0.5,+3.9] & 55.8 & +1.0 [-0.6,+2.7] \\
+SES, density term & 62.5 & -0.6 [-3.1,+1.9] & 53.9 & -0.9 [-3.1,+1.2] \\
+SES, raw $\lambda_2$ & 65.9 & +2.8 [+0.7,+5.0] & 55.4 & +0.6 [-1.3,+2.4] \\
+\bottomrule
+\end{tabular}}
+\end{table}

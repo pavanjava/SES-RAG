@@ -1,0 +1,27 @@
+\begin{table}[t]
+\centering
+\caption{SES-RAG minus each baseline, primary set, gpt-4o-mini (paired one-sided bootstrap, Holm-corrected over the 14 comparisons).}
+\label{tab:tests}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llccc}
+\toprule
+Baseline & Metric & $\Delta$ (pts) & 95\% CI & Holm $p$ \\
+\midrule
+Naive RAG & Gold-complete & +10.7 & [+7.5, +13.8] & $<$0.001 \\
+Naive RAG & F1 & +5.7 & [+3.2, +8.2] & $<$0.001 \\
+Hybrid RAG & Gold-complete & +9.9 & [+6.8, +12.9] & $<$0.001 \\
+Hybrid RAG & F1 & +5.7 & [+3.3, +8.3] & $<$0.001 \\
+Hybrid+Expand ($\mu{=}0$) & Gold-complete & +4.4 & [+1.9, +7.1] & 0.004 \\
+Hybrid+Expand ($\mu{=}0$) & F1 & +1.8 & [-0.4, +4.1] & 0.278 \\
+GraphRAG-lite & Gold-complete & +2.9 & [+0.2, +5.6] & 0.136 \\
+GraphRAG-lite & F1 & +2.7 & [+0.5, +4.9] & 0.062 \\
+SpectRAG-lite & Gold-complete & +2.4 & [-0.1, +5.0] & 0.209 \\
+SpectRAG-lite & F1 & +1.5 & [-0.7, +3.8] & 0.278 \\
+G-Retriever-lite & Gold-complete & +4.2 & [+1.6, +6.9] & 0.002 \\
+G-Retriever-lite & F1 & +1.9 & [-0.4, +4.1] & 0.278 \\
+IRCoT-lite & Gold-complete & -11.3 & [-14.8, -7.9] & 1.000 \\
+IRCoT-lite & F1 & -7.1 & [-9.9, -4.3] & 1.000 \\
+\bottomrule
+\end{tabular}}
+\end{table}

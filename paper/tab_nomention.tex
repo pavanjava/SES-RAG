@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\caption{Primary set with and without title-mention edges in the graph: gold-complete rate (\%) and, where answered with gpt-4o-mini, F1 (\%).}
+\label{tab:nomention}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+System & Gold-complete, with & Gold-complete, without & F1, without \\
+\midrule
+Naive RAG & 52.4 & 52.4 & -- \\
+Hybrid RAG & 53.2 & 53.2 & -- \\
+Hybrid+Expand ($\mu{=}0$) & 58.7 & 58.3 & 52.6 \\
+GraphRAG-lite & 60.2 & 60.2 & -- \\
+SpectRAG-lite & 60.6 & 58.3 & 52.6 \\
+G-Retriever-lite & 58.9 & 58.4 & -- \\
+IRCoT-lite & 74.3 & 74.3 & -- \\
+SES-RAG & 63.1 & 57.5 & 51.5 \\
+\bottomrule
+\end{tabular}}
+\end{table}

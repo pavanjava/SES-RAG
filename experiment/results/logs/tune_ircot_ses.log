@@ -1,0 +1,13 @@
+{'mu': 0.0, 'beta': 0.0, 'full': np.float64(0.6339165545087483), 'sp_recall': np.float64(0.8075370121130552)}
+{'mu': 0.0, 'beta': 0.5, 'full': np.float64(0.7294751009421265), 'sp_recall': np.float64(0.8580080753701211)}
+{'mu': 0.0, 'beta': 1.0, 'full': np.float64(0.7294751009421265), 'sp_recall': np.float64(0.857335127860027)}
+{'mu': 0.0, 'beta': 2.0, 'full': np.float64(0.7294751009421265), 'sp_recall': np.float64(0.857335127860027)}
+{'mu': 0.25, 'beta': 0.0, 'full': np.float64(0.7119784656796769), 'sp_recall': np.float64(0.8411843876177658)}
+{'mu': 0.25, 'beta': 0.5, 'full': np.float64(0.7590847913862718), 'sp_recall': np.float64(0.8694481830417228)}
+{'mu': 0.25, 'beta': 1.0, 'full': np.float64(0.7590847913862718), 'sp_recall': np.float64(0.8687752355316285)}
+{'mu': 0.25, 'beta': 2.0, 'full': np.float64(0.7590847913862718), 'sp_recall': np.float64(0.8687752355316285)}
+{'mu': 0.5, 'beta': 0.0, 'full': np.float64(0.7106325706594886), 'sp_recall': np.float64(0.8384925975773889)}
+{'mu': 0.5, 'beta': 0.5, 'full': np.float64(0.7698519515477793), 'sp_recall': np.float64(0.873485868102288)}
+{'mu': 0.5, 'beta': 1.0, 'full': np.float64(0.7644683714670256), 'sp_recall': np.float64(0.8707940780619112)}
+{'mu': 0.5, 'beta': 2.0, 'full': np.float64(0.7604306864064603), 'sp_recall': np.float64(0.8681022880215343)}
+frozen {'alpha': 0.25, 'n_terms': 4, 'scale': 0.25, 'mu': 0.25, 'ircot_rounds': 3, 'ircot_k': 2, 'ics_mu': 0.5, 'ics_beta': 0.5}

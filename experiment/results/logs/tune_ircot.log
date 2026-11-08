@@ -1,0 +1,11 @@
+embedded 64/743
+embedded 64/521
+{'rounds': 2, 'k': 2, 'full': np.float64(0.7348586810228802), 'sp_recall': np.float64(0.8566621803499327)}
+embedded 64/336
+embedded 64/310
+{'rounds': 2, 'k': 3, 'full': np.float64(0.730820995962315), 'sp_recall': np.float64(0.8526244952893675)}
+embedded 64/189
+{'rounds': 3, 'k': 2, 'full': np.float64(0.7402422611036339), 'sp_recall': np.float64(0.8600269179004038)}
+embedded 64/226
+{'rounds': 3, 'k': 3, 'full': np.float64(0.730820995962315), 'sp_recall': np.float64(0.8526244952893675)}
+frozen {'alpha': 0.25, 'n_terms': 4, 'scale': 0.25, 'mu': 0.25, 'ircot_rounds': 3, 'ircot_k': 2}

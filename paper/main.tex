@@ -1,0 +1,46 @@
+\documentclass[journal]{IEEEtran}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{url}
+\usepackage{cite}
+\hyphenation{Retrieval-Augmented}
+
+\begin{document}
+
+\title{Bridge Failure in Retrieval-Augmented Generation: Measuring It and Repairing It with Connectivity-Aware Context Selection}
+
+\author{Pavan~Kumar~Mantha,
+        Nenavath~Srinivas~Naik,
+        and~Naresh~Babu~Muppalaneni%
+\thanks{P. K. Mantha, N. S. Naik and N. B. Muppalaneni: [affiliation to be completed by the authors].}}
+
+\markboth{Manuscript draft}{Mantha \MakeLowercase{\textit{et al.}}: Bridge Failure in RAG}
+\maketitle
+
+\begin{abstract}
+\input{abstract}
+\end{abstract}
+
+\begin{IEEEkeywords}
+retrieval-augmented generation, multi-hop question answering, context selection, graph connectivity, spectral graph theory
+\end{IEEEkeywords}
+
+\input{sec_intro}
+\input{sec_related}
+\input{sec_method}
+\input{sec_setup}
+\input{sec_results}
+\input{sec_discuss}
+
+\section{Conclusion}
+\label{sec:conclusion}
+\input{conclusion}
+
+\section*{Availability}
+Code, frozen parameters, cached model outputs and all result tables are in the project repository (\texttt{experiment/results/}); every number in this paper is generated from those files.
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+\end{document}

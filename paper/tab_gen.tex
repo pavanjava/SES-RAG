@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{Answer F1 (\%) by generator on the primary set (same contexts, different generators).}
+\label{tab:gen}
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccc}
+\toprule
+Generator & Naive RAG & Hybrid RAG & Hybrid+Expand ($\mu{=}0$) & SpectRAG-lite & IRCoT-lite & SES-RAG & Gold-first oracle \\
+\midrule
+gpt-4o-mini & 49.1 & 49.1 & 53.0 & 53.3 & 61.9 & 54.8 & 71.0 \\
+gpt-4o & 49.5 & 50.0 & 53.5 & 54.0 & 64.1 & 56.5 & 74.8 \\
+claude-sonnet-5-5 & 53.1 & 53.3 & 56.0 & 56.6 & 68.4 & 59.1 & 78.5 \\
+claude-haiku-5-5 & 48.6 & 49.8 & 52.4 & 52.6 & 64.1 & 53.8 & 74.5 \\
+\bottomrule
+\end{tabular}}
+\end{table*}

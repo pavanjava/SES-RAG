@@ -1,0 +1,41 @@
+\begin{table}[t]
+\centering
+\caption{SES-RAG minus each baseline on the external datasets (gpt-4o-mini; $\Delta$ in points, 95\% CI, Holm $p$ over the 14 comparisons per dataset).}
+\label{tab:transfer_tests}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llllcc}
+\toprule
+Dataset & Baseline & Metric & $\Delta$ & 95\% CI & Holm $p$ \\
+\midrule
+MuSiQue & Naive RAG & Gold-complete & +0.2 & [-2.8, +3.0] & 1.000 \\
+MuSiQue & Naive RAG & F1 & +0.2 & [-2.2, +2.6] & 1.000 \\
+MuSiQue & Hybrid RAG & Gold-complete & +5.0 & [+2.4, +7.8] & 0.003 \\
+MuSiQue & Hybrid RAG & F1 & +3.2 & [+0.6, +5.8] & 0.094 \\
+MuSiQue & Hybrid+Expand ($\mu{=}0$) & Gold-complete & +0.0 & [-2.2, +2.2] & 1.000 \\
+MuSiQue & Hybrid+Expand ($\mu{=}0$) & F1 & -0.4 & [-2.5, +1.7] & 1.000 \\
+MuSiQue & GraphRAG-lite & Gold-complete & +0.6 & [-2.0, +3.2] & 1.000 \\
+MuSiQue & GraphRAG-lite & F1 & -0.3 & [-2.6, +2.0] & 1.000 \\
+MuSiQue & SpectRAG-lite & Gold-complete & +0.4 & [-2.0, +2.8] & 1.000 \\
+MuSiQue & SpectRAG-lite & F1 & +0.7 & [-1.7, +3.1] & 1.000 \\
+MuSiQue & G-Retriever-lite & Gold-complete & -0.4 & [-2.8, +2.0] & 1.000 \\
+MuSiQue & G-Retriever-lite & F1 & +0.6 & [-1.4, +2.7] & 1.000 \\
+MuSiQue & IRCoT-lite & Gold-complete & -10.4 & [-14.2, -6.8] & 1.000 \\
+MuSiQue & IRCoT-lite & F1 & -7.7 & [-10.9, -4.5] & 1.000 \\
+2Wiki & Naive RAG & Gold-complete & +16.4 & [+12.8, +20.0] & $<$0.001 \\
+2Wiki & Naive RAG & F1 & +5.0 & [+2.8, +7.4] & $<$0.001 \\
+2Wiki & Hybrid RAG & Gold-complete & +19.4 & [+15.8, +23.2] & $<$0.001 \\
+2Wiki & Hybrid RAG & F1 & +5.8 & [+3.4, +8.4] & $<$0.001 \\
+2Wiki & Hybrid+Expand ($\mu{=}0$) & Gold-complete & +14.0 & [+10.8, +17.2] & $<$0.001 \\
+2Wiki & Hybrid+Expand ($\mu{=}0$) & F1 & +4.1 & [+2.1, +6.3] & 0.001 \\
+2Wiki & GraphRAG-lite & Gold-complete & +8.4 & [+5.0, +12.0] & $<$0.001 \\
+2Wiki & GraphRAG-lite & F1 & +1.8 & [-0.7, +4.3] & 0.201 \\
+2Wiki & SpectRAG-lite & Gold-complete & +9.4 & [+6.2, +12.8] & $<$0.001 \\
+2Wiki & SpectRAG-lite & F1 & +2.5 & [+0.3, +4.8] & 0.043 \\
+2Wiki & G-Retriever-lite & Gold-complete & +12.8 & [+9.6, +16.2] & $<$0.001 \\
+2Wiki & G-Retriever-lite & F1 & +4.0 & [+1.7, +6.2] & 0.001 \\
+2Wiki & IRCoT-lite & Gold-complete & -22.4 & [-27.2, -17.4] & 1.000 \\
+2Wiki & IRCoT-lite & F1 & -6.2 & [-9.6, -2.9] & 1.000 \\
+\bottomrule
+\end{tabular}}
+\end{table}

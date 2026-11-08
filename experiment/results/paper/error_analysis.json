@@ -1,0 +1,9 @@
+{
+ "n": 861,
+ "gold_nodes_all_have_edge_to_another_gold": 0.7328687572590011,
+ "gold_in_pool": 0.908246225319396,
+ "at_least_one_gold_is_seed": 0.9907084785133565,
+ "ses_complete": 0.6306620209059234,
+ "ses_fail_gold_not_in_pool": 0.09175377468060394,
+ "ses_fail_in_pool_not_selected": 0.2775842044134727
+}

@@ -1,0 +1,59 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Main comparison (RQ2)}
+Table~\ref{tab:main} reports the primary set (861 HotpotQA bridge questions) with gpt-4o-mini as generator. Among the methods that make no LLM call, SES-RAG attains the highest gold-complete rate (63.1\%) and F1 (54.8\%). Table~\ref{tab:tests} gives the paired comparisons. SES-RAG is significantly better than Naive and Hybrid RAG on both metrics (about +10 points gold-complete and +5.7 points F1, Holm $p<0.001$), and better than the $\mu{=}0$ control and G-Retriever-lite on gold-complete retrieval (+4.4 and +4.2 points, Holm $p\le 0.004$). Its leads over GraphRAG-lite and SpectRAG-lite (+2.9 and +2.4 points gold-complete, +2.7 and +1.5 points F1) and its F1 leads over the control and G-Retriever-lite are not significant after correction. The LLM-driven IRCoT-lite is clearly ahead of SES-RAG ($-11.3$ points gold-complete, $-7.1$ points F1). The pre-declared criterion, that SES-RAG beats every baseline on both metrics, is therefore \emph{not} met. All of these systems remain far from the gold-first oracle (71.0\% F1).
+
+\input{tab_main}
+\input{tab_tests}
+
+\subsection{Generator robustness}
+Table~\ref{tab:gen} repeats the F1 comparison for all four generators on the identical contexts. The ordering of the point estimates of the systems shown is the same for every generator: Naive $\approx$ Hybrid $<$ Hybrid+Expand $\approx$ SpectRAG-lite $<$ SES-RAG $<$ IRCoT-lite $<$ oracle. SES-RAG improves on Hybrid RAG by 5.7, 6.5, 5.8 and 4.0 F1 points for gpt-4o-mini, gpt-4o, claude-sonnet-5-5 and claude-haiku-5-5 (all 95\% intervals exclude zero), and is below IRCoT-lite by 7.1 to 10.3 points. The gain therefore does not depend on a particular generator.
+
+\input{tab_gen}
+
+\subsection{Bridge failure and answer quality (RQ1)}
+Table~\ref{tab:link} splits all contexts by whether they contain all gold paragraphs. With a complete context the generators answer correctly 77.8--87.5\% of the time (judged) and reach 72.6--79.9\% F1 while abstaining on 2.4--8.2\% of questions. With a bridge-failed context judged accuracy falls to 22.3--27.0\%, F1 to 19.2--24.1\%, and the generators abstain on 53.4--63.4\% of questions. Improving retrieval completeness is thus the primary lever for answer quality on bridge questions, whichever generator is used (Fig.~\ref{fig:link}). This comparison is observational and the contexts are pooled over eight systems, so it should be read as an association. It is not an artefact of question difficulty: comparing systems on the \emph{same} question (question fixed effects), a complete context raises F1 by 0.48, 0.54, 0.56 and 0.57 for the four generators, nearly identical to the raw gaps of 0.49, 0.54, 0.56 and 0.57. The gold-first oracle provides a more interventional reference: giving every system the gold paragraphs raises F1 from 54.8\% (SES-RAG) to 71.0\% with gpt-4o-mini.
+
+\input{tab_link}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_link}
+\caption{F1 by generator when the context is complete or bridge-failed (primary set, eight systems pooled).}
+\label{fig:link}
+\end{figure}
+
+\subsection{Is spectral connectivity the active ingredient? (RQ3)}
+Table~\ref{tab:abl} replaces the $\lambda_2$ term by alternatives, keeping the weight $\mu$ tuned for the normalised $\lambda_2$. The unnormalised $\lambda_2$ has a different scale, so its best $\mu$ differs; we treat the comparison as indicative. Removing the term altogether ($\mu{=}0$) costs 4.4 gold-complete points, confirming that rewarding connectivity helps. But the \emph{number of connected components} (a count, no eigenvalues) and the \emph{unnormalised} $\lambda_2$ score 2.2 and 2.8 points higher gold-complete (uncorrected intervals above zero; Holm-corrected over the eight ablation comparisons $p=0.11$, so not significant), with F1 differences within noise, and a plain density term is equivalent. Only the removal of the term ($\mu{=}0$) is significantly worse (Holm $p=0.002$ for gold-complete). The comparison is indicative: the component-count objective is integer-valued, so a common $\mu$ is not on a common scale. Sensitivity to $\mu$ (Fig.~\ref{fig:mu}) shows the same picture: the unnormalised variant peaks at 68.6\% at $\mu{=}1$, whereas the normalised variant peaks at 63.1\% at $\mu{=}0.25$. This sweep was run on the primary set after the protocol was fixed; its maximum over seven values of $\mu$ is optimistic, and it is exploratory. We conclude that the benefit comes from a connectivity reward in general, and that spectral quantities offer no demonstrated advantage over simpler ones here.
+
+\input{tab_abl}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_mu}
+\caption{Gold-complete rate of SES-RAG versus $\mu$ for the normalised and unnormalised $\lambda_2$ (primary set, exploratory sensitivity analysis).}
+\label{fig:mu}
+\end{figure}
+
+\subsection{Token budget}
+Figure~\ref{fig:budget} shows gold-complete retrieval for budgets from 300 to 1{,}500 tokens. SES-RAG has the highest point estimate among LLM-free methods at every budget (no intervals were computed for this sweep, and $\mu$ was not re-tuned per budget), with the largest margins at tight budgets (47.3\% at 300 tokens versus 41.0\% for the next best, GraphRAG-lite), and the curves converge as the budget grows (80.7\% vs.\ 79.9\% for SpectRAG-lite at 1{,}500, where the iterative baseline's context uses only about 1{,}000 of the 1{,}500 tokens). Connectivity-aware packing matters most when the budget forces a choice among candidates.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figs/fig_budget}
+\caption{Gold-complete rate versus token budget (primary set).}
+\label{fig:budget}
+\end{figure}
+
+\subsection{Extension: iterative retrieval with connectivity-aware packing}
+IRCoT+SES adds the iterative-retrieval candidates to the SES pool and packs the budget with the same rule (Section~\ref{sec:method}). On the development and exploration questions it improved gold-complete retrieval from 74.0\% to 77.0\%, but on the primary set it did not: 75.0\% vs.\ 74.3\% gold-complete (+0.7 points, 95\% CI $-2.0$ to $+3.4$) and 61.6\% vs.\ 61.9\% F1 ($-0.3$, CI $-2.6$ to $+2.0$). It is better than SES-RAG alone (+12.0 gold-complete, +6.8 F1 points), so the retrieval of the bridge, not the packing, accounts for IRCoT's advantage. On MuSiQue IRCoT+SES is \emph{worse} than IRCoT-lite in gold-complete rate ($-4.4$ points, 95\% CI $-7.2$ to $-1.6$) and not better on 2WikiMultiHopQA ($-0.4$, CI $-4.0$ to $+3.4$).
+
+\subsection{Where SES-RAG loses}
+The candidate pool contains every gold paragraph for 90.8\% of the primary questions, and at least one gold paragraph is a retrieval seed for 99.1\%. SES-RAG's context is complete for 63.1\%: about 28 points are lost at selection (the gold paragraphs were in the pool but not chosen) and about 9 points because the pool lacked one. Since the pool has 100 candidates for about five context slots, pool recall is a loose ceiling. In 73.3\% of questions the two gold paragraphs are directly linked in the graph.
+
+\subsection{Dependence on the graph and transfer (RQ4)}
+\input{sec_results_transfer}
+
+\subsection{Cost}
+Selecting the context with SES-RAG takes 3.7\,ms per question on a CPU, given the shared candidate pool, and requires no LLM call; the corresponding selection step takes 0.03\,ms for Hybrid RAG and 0.2\,ms for SpectRAG-lite. The timings exclude pool construction, BM25 scoring and graph building, which all graph-based systems share. IRCoT-lite needs three sequential LLM calls (plus three embedding calls) per question before the answer is generated.

@@ -1,0 +1,26 @@
+\section{Problem and Method}
+\label{sec:method}
+
+\subsection{Bridge-complete contexts}
+Let $\mathcal{C}$ be a corpus of chunks (here one chunk is one paragraph, and we use ``chunk'', ``paragraph'' and ``passage'' interchangeably) and $q$ a question. A generator receives a context $S\subseteq\mathcal{C}$ with token cost $\tau(S)=\sum_{c\in S}\tau(c)\le B$. For a bridge question, let $G_q\subseteq\mathcal{C}$ be the gold supporting chunks (two or more, linked by a bridge entity). We call $S$ \emph{bridge-complete} (``gold-complete'' in the tables) if $G_q\subseteq S$ and \emph{bridge-failed} otherwise; bridge-failed thus covers any missing gold chunk, in practice usually the bridge chunk. Since the bridge chunk has low lexical and semantic similarity to $q$, similarity-ranked contexts are bridge-failed more often than their per-chunk recall suggests. Our measurements (Section~\ref{sec:results}) quantify the effect on answer quality by conditioning on completeness.
+
+\subsection{Evidence graph}
+We build one undirected weighted graph $G=(\mathcal{C},W)$ over the corpus, shared by every graph-based method. Three edge signals are combined,
+\begin{equation}
+W_{ij}=0.5\,m_{ij}+0.2\,\min\!\left(1,\tfrac{s_{ij}}{3}\right)+0.3\,\kappa_{ij},
+\end{equation}
+where $m_{ij}=1$ if the text of one chunk mentions the title of the other, $s_{ij}$ is the number of shared capitalised entity spans (spans occurring in more than 20 chunks are ignored), and $\kappa_{ij}\in[0,1]$ is the min--max normalised cosine similarity for the six nearest neighbours of each chunk. Edges with $W_{ij}<0.1$ are dropped. The title-mention signal plays the role of hyperlinks between encyclopedia articles; Section~\ref{sec:results} reports what happens without it.
+
+\subsection{Candidate pool and relevance}
+For each query we compute dense (cosine) and BM25~\cite{robertson2009bm25} scores, fuse the two rankings with reciprocal rank fusion~\cite{cormack2009rrf}, and take the top ten as seeds. The pool consists of the seeds plus their graph neighbours up to two hops (at most 8 and 5 strongest neighbours per node at hops one and two), capped at 100 chunks. Relevance is $r(c)=0.7\,\min\!\big(1,\max(0,\tfrac{\cos(q,c)-\bar{\cos}}{\max\cos-\bar{\cos}})\big)+0.3\,\tfrac{\mathrm{bm25}(q,c)}{\max\mathrm{bm25}}$ with the mean and maximum taken over the corpus, and is min--max normalised within the pool before selection. The IRCoT+SES pool is the union of this pool and the iterative hits and may exceed 100 chunks. SpectRAG-lite uses the top five seeds.
+
+\subsection{SES-RAG selection}
+For a set $S$ let $G[S]$ be the subgraph induced by $S$ and $L_S=I-D^{-1/2}W_SD^{-1/2}$ its normalised Laplacian, where the rows and columns of zero-degree nodes are set to zero. Let $\lambda_2(S)$ be its second-smallest eigenvalue, with the convention $\lambda_2(S)=0$ for $|S|\le 1$; for $|S|\ge 2$, $\lambda_2(S)=0$ exactly when $G[S]$ is disconnected. SES-RAG greedily builds $S$ under the token budget:
+\begin{equation}
+c^\star=\arg\max_{c\notin S,\;\tau(S\cup c)\le B}\; r(c)+\mu\big(\lambda_2(S\cup\{c\})-\lambda_2(S)\big).
+\label{eq:ses}
+\end{equation}
+Three properties of the normalised $\lambda_2$ shape the behaviour of this rule. (i) For two nodes joined by any edge $\lambda_2=2$ whatever the edge weight, so the first connected step jumps from $0$ to $2$ and the weights of Eq.~(1) matter only for larger sets. (ii) Adding a node to a connected set usually \emph{lowers} $\lambda_2$ (for unit-weight paths of $2$, $3$ and $4$ nodes it is $2$, $1$ and $0.5$), whereas adding a node that is not connected to the set drops it to $0$. The term therefore penalises fragmenting the selection more than it penalises growing a connected chain, and it rewards the first link most. (iii) If $S$ already has several components, a chunk that joins only two of them earns no reward. The greedy rule has no submodularity guarantee; the term is a connectivity heuristic, not an optimal-evidence criterion. Each step evaluates at most $|{\rm pool}|=100$ eigenvalue problems on matrices of size at most $|S|+1$, which takes milliseconds on a CPU and requires no LLM call. With $\mu=0$ the method reduces to relevance-ranked selection from the graph-expanded pool (the ``Hybrid+Expand'' control).
+
+\subsection{Extension: iterative retrieval with connectivity-aware packing}
+IRCoT-style retrieval produces strong candidates but fills the budget in retrieval order. We add the chunks retrieved over $R$ iterative rounds to the pool, give them a relevance bonus $\beta$, and apply the same greedy rule~(\ref{eq:ses}). We call this system IRCoT+SES. Its parameters $(\mu,\beta)$ were selected on the development and exploration questions only.

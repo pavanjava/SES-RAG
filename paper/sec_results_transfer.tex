@@ -1,0 +1,22 @@
+\paragraph{Without title-mention edges.}
+We rebuilt the graph with the mention signal removed and re-tuned the parametrised systems on the development and exploration questions. Table~\ref{tab:nomention} gives gold-complete rates on the primary set. SES-RAG falls from 63.1\% to 57.5\%, no better than the $\mu{=}0$ control (58.3\%; difference $-0.8$ points, 95\% CI $-3.4$ to $+1.7$) or G-Retriever-lite (58.4\%). On this graph the re-tuned mixing weight of SpectRAG-lite is zero, which makes its selections identical to the control's, so it is not an independent comparison. GraphRAG-lite and IRCoT-lite do not read the graph and are unchanged. SES-RAG still exceeds Hybrid and Naive RAG by 4.3 and 5.1 points because the pool is expanded through the remaining entity and similarity edges; it is the connectivity reward on top of the expanded pool that no longer helps. We did not test an interaction between the graph and the reward statistically, and the spectral coordinates of SpectRAG-lite in this run use the largest connected component only. With gpt-4o-mini, SES-RAG reaches 51.5\% F1 against 52.6\% for the control and SpectRAG-lite on the same questions. The connectivity reward needs a graph that actually links bridge passages.
+
+\input{tab_nomention}
+
+\paragraph{2WikiMultiHopQA.}
+On 500 compositional and inference questions, with every setting frozen on HotpotQA and no re-tuning, SES-RAG's gold-complete rate is 43.2\%, against 23.8\% for Hybrid RAG and 33.8--34.8\% for SpectRAG-lite and GraphRAG-lite (Table~\ref{tab:2wiki}). The gold-complete gains over every LLM-free baseline (+8.4 to +19.4 points) are significant after Holm correction. F1 improves by 1.8 to 5.8 points, significantly for all but GraphRAG-lite. IRCoT-lite reaches 65.6\% gold-complete and 27.2\% F1 (SES-RAG: 21.0\%), against a ceiling of 32.6\% F1 for the gold-first oracle. The corpus here is small (5{,}173 paragraphs, many shared across questions), so absolute completeness is not comparable with HotpotQA's. At 600 tokens even the oracle fits all gold paragraphs for only 84.4\% of these questions.
+
+\input{tab_2wiki}
+
+Table~\ref{tab:transfer_tests} lists the paired comparisons for both external datasets.
+
+\paragraph{MuSiQue.}
+MuSiQue questions need two to four hops and every method struggles (Table~\ref{tab:musique}): gold-complete rates are 16--22\% for all LLM-free systems and SES-RAG (21.4\%) is indistinguishable from the control, Naive RAG, GraphRAG-lite, SpectRAG-lite and G-Retriever-lite; it improves only on Hybrid RAG (+5.0 points, Holm $p=0.003$). IRCoT-lite is 10 points ahead (31.8\%). The connectivity reward therefore does not transfer to these deeper chains at this budget.
+
+\input{tab_musique}
+\input{tab_transfer_tests}
+\input{tab_ext_gen}
+
+Table~\ref{tab:extgen} repeats the comparison with claude-sonnet-5-5 as generator. The ordering of SES-RAG, SpectRAG-lite and IRCoT-lite is unchanged, and on 2WikiMultiHopQA absolute F1 is higher for Claude (IRCoT-lite 40.2\%, oracle 50.4\%) than for gpt-4o-mini (27.2\%, 32.6\%), so the oracle abstention ceiling noted below is generator-specific.
+
+\paragraph{A caveat on answer metrics for the external datasets.} Even when the gold paragraphs are the whole context, gpt-4o-mini abstains on 48\% of 2WikiMultiHopQA and 48\% of MuSiQue questions (9.6\% on HotpotQA), so the labelled supporting paragraphs are often not enough for the model to commit to an answer. F1 on these datasets is therefore capped well below HotpotQA's (oracle F1: 32.6\% and 32.8\%), and we regard the gold-complete rate as the more reliable metric there. Hybrid RAG is also below Naive RAG on both external datasets, so fusion with BM25 is not uniformly helpful in this setting.

@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{HotpotQA bridge questions (n=861), generator gpt-4o-mini, 600-token budget. Mean with 95\% bootstrap CI. LLM calls = query-time LLM calls before answer generation.}
+\label{tab:main}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+System & Gold-complete (\%) & F1 (\%) & Judge acc. (\%) & Unsupported ans. (\%) & Abstain (\%) & LLM calls \\
+\midrule
+Naive RAG & 52.4\,{\scriptsize[49.1,55.9]} & 49.1\,{\scriptsize[45.9,52.2]} & 25.3\,{\scriptsize[22.4,28.3]} & 54.7\,{\scriptsize[51.5,58.0]} & 30.5 & 0 \\
+Hybrid RAG & 53.2\,{\scriptsize[49.9,56.6]} & 49.1\,{\scriptsize[45.9,52.1]} & 26.4\,{\scriptsize[23.3,29.3]} & 52.3\,{\scriptsize[49.0,55.6]} & 31.7 & 0 \\
+Hybrid+Expand ($\mu{=}0$) & 58.7\,{\scriptsize[55.4,62.0]} & 53.0\,{\scriptsize[49.9,56.0]} & 26.9\,{\scriptsize[23.9,29.7]} & 55.2\,{\scriptsize[51.8,58.4]} & 28.6 & 0 \\
+GraphRAG-lite & 60.2\,{\scriptsize[56.8,63.4]} & 52.1\,{\scriptsize[49.0,55.1]} & 26.5\,{\scriptsize[23.5,29.4]} & 54.6\,{\scriptsize[51.2,58.0]} & 28.3 & 0 \\
+SpectRAG-lite & 60.6\,{\scriptsize[57.4,64.0]} & 53.3\,{\scriptsize[50.1,56.4]} & 27.4\,{\scriptsize[24.4,30.3]} & 54.1\,{\scriptsize[50.8,57.4]} & 27.4 & 0 \\
+G-Retriever-lite & 58.9\,{\scriptsize[55.6,62.3]} & 53.0\,{\scriptsize[49.7,56.0]} & 26.9\,{\scriptsize[23.9,29.7]} & 55.2\,{\scriptsize[51.7,58.7]} & 28.6 & 0 \\
+IRCoT-lite & 74.3\,{\scriptsize[71.4,77.4]} & 61.9\,{\scriptsize[58.9,64.8]} & 29.0\,{\scriptsize[26.0,31.9]} & 62.1\,{\scriptsize[59.0,65.4]} & 19.5 & 3 \\
+\textbf{SES-RAG (ours)} & 63.1\,{\scriptsize[59.9,66.3]} & 54.8\,{\scriptsize[51.4,57.7]} & 26.9\,{\scriptsize[23.8,30.0]} & 57.4\,{\scriptsize[53.9,60.5]} & 25.1 & 0 \\
+\midrule
+Oracle (gold first) & 100.0\,{\scriptsize[100.0,100.0]} & 71.0\,{\scriptsize[68.2,73.6]} & 31.0\,{\scriptsize[28.0,34.0]} & 71.3\,{\scriptsize[68.4,74.2]} & 9.6 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\caption{MuSiQue ($n=500$ questions, settings frozen on HotpotQA), gpt-4o-mini.}
+\label{tab:musique}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+System & Gold-complete (\%) & F1 (\%) & Judged acc. (\%) & LLM calls \\
+\midrule
+Naive RAG & 21.2\,{\scriptsize[17.6,24.8]} & 16.3\,{\scriptsize[13.3,19.5]} & 18.2\,{\scriptsize[14.8,21.6]} & 0 \\
+Hybrid RAG & 16.4\,{\scriptsize[13.2,19.8]} & 13.3\,{\scriptsize[10.7,16.1]} & 14.4\,{\scriptsize[11.4,17.6]} & 0 \\
+Hybrid+Expand ($\mu{=}0$) & 21.4\,{\scriptsize[18.0,25.0]} & 16.9\,{\scriptsize[14.0,20.1]} & 18.4\,{\scriptsize[15.0,22.0]} & 0 \\
+GraphRAG-lite & 20.8\,{\scriptsize[17.4,24.4]} & 16.8\,{\scriptsize[13.9,20.1]} & 17.8\,{\scriptsize[14.6,21.2]} & 0 \\
+SpectRAG-lite & 21.0\,{\scriptsize[17.4,24.6]} & 15.8\,{\scriptsize[13.0,18.8]} & 17.4\,{\scriptsize[14.2,20.8]} & 0 \\
+G-Retriever-lite & 21.8\,{\scriptsize[18.2,25.4]} & 15.9\,{\scriptsize[13.1,19.0]} & 17.6\,{\scriptsize[14.4,20.8]} & 0 \\
+IRCoT-lite & 31.8\,{\scriptsize[27.6,35.8]} & 24.2\,{\scriptsize[20.8,27.8]} & 25.6\,{\scriptsize[22.0,29.6]} & 3 \\
+\textbf{SES-RAG} & 21.4\,{\scriptsize[17.8,25.0]} & 16.6\,{\scriptsize[13.6,19.6]} & 18.0\,{\scriptsize[14.6,21.4]} & 0 \\
+IRCoT+SES & 27.4\,{\scriptsize[23.4,31.2]} & 22.2\,{\scriptsize[18.9,25.7]} & 24.2\,{\scriptsize[20.4,28.2]} & 3 \\
+\midrule
+Gold-first oracle & 92.4\,{\scriptsize[90.2,94.8]} & 32.8\,{\scriptsize[29.2,36.7]} & 34.6\,{\scriptsize[30.6,38.6]} & -- \\
+\bottomrule
+\end{tabular}}
+\end{table}

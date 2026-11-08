@@ -1,0 +1,12 @@
+[
+  {"prompt": "I have a new idea for the selector, where do I start?", "skill": "spec-driven-development"},
+  {"prompt": "break the spec into tasks", "skill": "planning-and-task-breakdown"},
+  {"prompt": "implement the lambda2 function", "skill": "incremental-implementation"},
+  {"prompt": "add tests for the spectral code", "skill": "test-driven-development"},
+  {"prompt": "run the P0 experiment", "skill": "experiment-integrity"},
+  {"prompt": "the metrics look wrong, fix it", "skill": "debugging-and-error-recovery"},
+  {"prompt": "about to launch the full 2k API run", "skill": "doubt-driven-development"},
+  {"prompt": "this code feels heavy, clean it up", "skill": "code-simplification"},
+  {"prompt": "record why we dropped three edge signals", "skill": "documentation-and-adrs"},
+  {"prompt": "which workflow should I use?", "skill": "using-harness"}
+]

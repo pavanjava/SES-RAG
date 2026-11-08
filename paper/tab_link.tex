@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\caption{Outcome by whether the context contains all gold paragraphs (pooled over the eight non-oracle systems on the primary set).}
+\label{tab:link}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llrccc}
+\toprule
+Generator & Context & $n$ & Judged acc. (\%) & F1 (\%) & Abstain (\%) \\
+\midrule
+gpt-4o-mini & bridge-failed & 2744 & 27.0 & 24.1 & 56.5 \\
+gpt-4o-mini & complete & 4144 & 77.8 & 72.6 & 8.2 \\
+gpt-4o & bridge-failed & 2744 & 24.9 & 21.8 & 63.4 \\
+gpt-4o & complete & 4144 & 81.9 & 75.7 & 7.5 \\
+claude-sonnet-5-5 & bridge-failed & 2744 & 26.4 & 23.4 & 53.4 \\
+claude-sonnet-5-5 & complete & 4144 & 87.5 & 79.9 & 2.4 \\
+claude-haiku-5-5 & bridge-failed & 2744 & 22.3 & 19.2 & 56.3 \\
+claude-haiku-5-5 & complete & 4144 & 82.3 & 75.7 & 5.5 \\
+\bottomrule
+\end{tabular}}
+\end{table}

@@ -1,0 +1,34 @@
+{
+ "gpt-4o-mini": {
+  "n": 770,
+  "correct_agree": 0.9337662337662338,
+  "correct_kappa": 0.750460697718752,
+  "faith_agree": 0.8363636363636363,
+  "faith_kappa": 0.3292775665399237,
+  "f1_vs_judge_agree": 0.8688311688311688
+ },
+ "gpt-4o": {
+  "n": 562,
+  "correct_agree": 0.9288256227758007,
+  "correct_kappa": 0.6180508359385618,
+  "faith_agree": 0.8434163701067615,
+  "faith_kappa": 0.17994295947469616,
+  "f1_vs_judge_agree": 0.8985765124555161
+ },
+ "claude-sonnet-5-5": {
+  "n": 616,
+  "correct_agree": 0.922077922077922,
+  "correct_kappa": 0.7011401309937736,
+  "faith_agree": 0.8506493506493507,
+  "faith_kappa": 0.516425755584757,
+  "f1_vs_judge_agree": 0.9237012987012987
+ },
+ "claude-haiku-5-5": {
+  "n": 592,
+  "correct_agree": 0.9155405405405406,
+  "correct_kappa": 0.6900134048257373,
+  "faith_agree": 0.8834459459459459,
+  "faith_kappa": 0.5292924637013137,
+  "f1_vs_judge_agree": 0.9003378378378378
+ }
+}
